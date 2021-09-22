@@ -77,11 +77,32 @@
 #endif
 
 #ifdef VITA
-    #include <psp2/kernel/clib.h>
-    #include "vita/VitaInput.h"
+#include <psp2/kernel/clib.h>
+#include "vita/VitaInput.h"
 
-    unsigned int sceLibcHeapSize = 2 * 1024 * 1024;
-    int _newlib_heap_size_user = 320 * 1024 * 1024;
+//unsigned int sceLibcHeapSize = 2 * 1024 * 1024;
+int _newlib_heap_size_user = 330 * 1024 * 1024;
+
+
+void *memcpy(void *destination, const void *source, size_t n)
+{
+	return sceClibMemcpy(destination, source, n);
+}
+
+void *memset(void *destination, int c, size_t n)
+{
+	return sceClibMemset(destination, c, n);
+}
+
+void *memmove(void *destination, const void *source, size_t n)
+{
+	return sceClibMemmove(destination, source, n);
+}
+
+int memcmp(const void *arr1, const void *arr2, size_t n)
+{
+	return sceClibMemcmp(arr1, arr2, n);
+}
 #endif
 
 #if !defined(__GNUG__) || (defined(_GLIBCXX_HAS_GTHREADS) && defined(_GLIBCXX_USE_C99_STDINT_TR1) && (ATOMIC_INT_LOCK_FREE > 1) && !defined(_GLIBCXX_HAS_GTHREADS))
@@ -226,6 +247,7 @@ void createDefaultConfigFile(const std::string& configfilepath, const std::strin
                                 "Player Name = %s            # The name of the player\n"
                                 "Language = %s               # en = English, fr = French, de = German\n"
                                 "Scroll Speed = 50           # Amount to scroll the map when the cursor is near the screen border\n"
+                                "Controller Speed = 10       # Controller cursor movement speed\n"
                                 "Show Tutorial Hints = true  # Show tutorial hints during the game\n"
                                 "\n"
                                 "[Video]\n"
@@ -519,6 +541,9 @@ int main(int argc, char *argv[]) {
             settings.general.playerName = myINIFile.getStringValue("General","Player Name","Player");
             settings.general.language = myINIFile.getStringValue("General","Language","en");
             settings.general.scrollSpeed = myINIFile.getIntValue("General","Scroll Speed",50);
+#ifdef VITA
+            settings.general.controllerSpeed = myINIFile.getIntValue("General","Controller Speed",10);
+#endif
             settings.general.showTutorialHints = myINIFile.getBoolValue("General","Show Tutorial Hints",true);
             settings.video.width = myINIFile.getIntValue("Video","Width",640);
             settings.video.height = myINIFile.getIntValue("Video","Height",480);

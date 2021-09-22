@@ -23,7 +23,8 @@ if(VITA)
     set(VITA_LIBS "-lSDL2 -lfreetype -ljpeg -lpng -lwebp -lz -lvorbisfile -lvorbis -logg -lmikmod \
     -lpib -llibScePiglet_stub -lSceShaccCg_stub -ltaihen_stub -lSceAppMgr_stub \
     -lScePower_stub -lSceAudio_stub -lSceCtrl_stub -lSceHid_stub -lSceTouch_stub \
-	-lSceDisplay_stub -lSceGxm_stub -lSceCommonDialog_stub -lFLAC -lmpg123 -lSceMotion_stub -lSceAppUtil_stub")
+	-lSceDisplay_stub -lSceGxm_stub -lSceCommonDialog_stub -lFLAC -lmpg123 -lSceMotion_stub -lSceAppUtil_stub \
+    -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-memmove -fno-builtin-memcmp")
     SET(CMAKE_CXX_STANDARD_LIBRARIES "${VITA_LIBS}")
 endif()
 

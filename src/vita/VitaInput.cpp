@@ -1,4 +1,7 @@
 #include "vita/VitaInput.h"
+#include "DataTypes.h"
+
+extern SettingsClass    settings;
 
 namespace VitaInput
 {
@@ -84,9 +87,9 @@ namespace VitaInput
             float resolutionSpeedMod = static_cast<float>(getRendererHeight()) / 480;
 
             emulatedPointerPosX += std::pow(std::abs(controllerLeftXAxis), CONTROLLER_AXIS_SPEEDUP) * xSign * deltaTime
-                                * 10.0f / CONTROLLER_SPEED_MOD * resolutionSpeedMod * cursorSpeedup;
+                                * settings.general.controllerSpeed / CONTROLLER_SPEED_MOD * resolutionSpeedMod * cursorSpeedup;
             emulatedPointerPosY += std::pow(std::abs(controllerLeftYAxis), CONTROLLER_AXIS_SPEEDUP) * ySign * deltaTime
-                                * 10.0f / CONTROLLER_SPEED_MOD * resolutionSpeedMod * cursorSpeedup;
+                                * settings.general.controllerSpeed / CONTROLLER_SPEED_MOD * resolutionSpeedMod * cursorSpeedup;
 
             if (emulatedPointerPosX < 0)
                 emulatedPointerPosX = 0;
