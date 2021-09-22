@@ -43,9 +43,11 @@
     the two global variables drawnMouseX and drawnMouseY.
 */
 void drawCursor() {
+#ifndef VITA
     if(!(SDL_GetWindowFlags(window) & SDL_WINDOW_MOUSE_FOCUS)) {
         return;
     }
+#endif
 
     SDL_Texture* tex = pGFXManager->getUIGraphic(cursorFrame);
 

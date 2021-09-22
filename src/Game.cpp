@@ -69,6 +69,10 @@
 #include <sstream>
 #include <iomanip>
 
+#ifdef VITA
+#include "vita/VitaInput.h"
+#endif
+
 Game::Game() {
     currentZoomlevel = settings.video.preferredZoomLevel;
 
@@ -550,6 +554,38 @@ void Game::doInput()
 {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
+#ifdef VITA
+        switch (event.type) {
+            case SDL_FINGERDOWN:
+            case SDL_FINGERUP:
+            case SDL_FINGERMOTION:
+                VitaInput::HandleTouchEvent(event.tfinger);
+                break;
+            case SDL_CONTROLLERDEVICEREMOVED:
+                if (VitaInput::gameController != nullptr) {
+                    const SDL_GameController* removedController = SDL_GameControllerFromInstanceID(event.jdevice.which);
+                    if (removedController == VitaInput::gameController) {
+                        SDL_GameControllerClose(VitaInput::gameController);
+                        VitaInput::gameController = nullptr;
+                    }
+                }
+                break;
+            case SDL_CONTROLLERDEVICEADDED:
+                if (VitaInput::gameController == nullptr) {
+                    VitaInput::gameController = SDL_GameControllerOpen(event.jdevice.which);
+                }
+                break;
+            case SDL_CONTROLLERAXISMOTION:
+                VitaInput::HandleControllerAxisEvent(event.caxis);
+                break;
+            case SDL_CONTROLLERBUTTONDOWN:
+            case SDL_CONTROLLERBUTTONUP:
+                VitaInput::HandleControllerButtonEvent(event.cbutton);
+                break;
+            default:
+                break;
+        }
+#endif
         // check for a key press
 
         // first of all update mouse
@@ -808,6 +844,13 @@ void Game::doInput()
         }
     }
 
+#ifdef VITA
+    if((pInGameMenu == nullptr) && (pInGameMentat == nullptr) && (pWaitingForOtherPlayers == nullptr)) {
+        scrollDownMode = VitaInput::upScrollActive;
+        scrollLeftMode = VitaInput::leftScrollActive;
+        scrollRightMode = VitaInput::rightScrollActive;
+        scrollUpMode = VitaInput::downScrollActive;
+#else
     if((pInGameMenu == nullptr) && (pInGameMentat == nullptr) && (pWaitingForOtherPlayers == nullptr) && (SDL_GetWindowFlags(window) & SDL_WINDOW_MOUSE_FOCUS)) {
 
         const Uint8 *keystate = SDL_GetKeyboardState(nullptr);
@@ -815,7 +858,7 @@ void Game::doInput()
         scrollLeftMode = (drawnMouseX <= SCROLLBORDER) || keystate[SDL_SCANCODE_LEFT];
         scrollRightMode = (drawnMouseX >= getRendererWidth()-1-SCROLLBORDER) || keystate[SDL_SCANCODE_RIGHT];
         scrollUpMode = (drawnMouseY <= SCROLLBORDER) || keystate[SDL_SCANCODE_UP];
-
+#endif
         if(scrollLeftMode && scrollRightMode) {
             // do nothing
         } else if(scrollLeftMode) {
@@ -842,9 +885,11 @@ void Game::doInput()
 
 void Game::drawCursor() const
 {
+#ifndef VITA
     if(!(SDL_GetWindowFlags(window) & SDL_WINDOW_MOUSE_FOCUS)) {
         return;
     }
+#endif
 
     SDL_Texture* pCursor = nullptr;
     SDL_Rect dest = { 0, 0, 0, 0};
@@ -1110,7 +1155,9 @@ void Game::runMainLoop() {
 
         frameTime += frameEnd - frameStart; // find difference to get frametime
         frameStart = SDL_GetTicks();
-
+#ifdef VITA
+        VitaInput::ProcessControllerAxisMotion();
+#endif
         numFrames++;
 
         if (bShowFPS) {
@@ -2088,6 +2135,25 @@ void Game::handleKeyInput(SDL_KeyboardEvent& keyboardEvent) {
                 }
             }
         } break;
+
+#ifdef VITA
+        case SDLK_s: {
+            //stop
+            UnitBase* pLastUnit = nullptr;
+            for(const Uint32 selectedUnitID : currentGame->getSelectedList()) {
+                ObjectBase* pObject = currentGame->getObjectManager().getObject(selectedUnitID);
+                UnitBase* pUnit = dynamic_cast<UnitBase*>(pObject);
+                if(pUnit != nullptr) {
+                    pLastUnit = pUnit;
+                    pUnit->handleSetAttackModeClick(GUARD);
+                }
+            }
+
+            if(pLastUnit != nullptr) {
+                pLastUnit->playConfirmSound();
+            }
+        } break;
+#endif
 
         case SDLK_g: {
             // select next construction yard

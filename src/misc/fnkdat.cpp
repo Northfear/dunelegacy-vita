@@ -399,7 +399,12 @@ int fnkdat(const _TCHAR* target, _TCHAR* buffer, int len, int flags) {
 #define _TCHAR char
 #define _T(s)  s
 #define FNKDAT_FILE_SEPARATOR '/'
+#ifdef VITA
+#include <dirent.h>
+#define _tmkdir(d) sceIoMkdir(d, 0777)
+#else
 #define _tmkdir(d) mkdir(d, (mode_t)FNKDAT_DIRMODE)
+#endif
 #define _tcsrchr strrchr
 #define _tcslen strlen
 #define _tstat stat
@@ -441,6 +446,8 @@ int fnkdat(const char* target, char* buffer, int len, int flags) {
 #ifdef __APPLE__
       getMacApplicationSupportFolder(buffer, len);
       FNKDAT_S(strncat(buffer, "/Dune Legacy", len));
+#elif defined(VITA)
+      FNKDAT_S(strncat(buffer, "ux0:data/dunelegacy", len));
 #else
       {
          char* xdg_config = getenv("XDG_CONFIG_HOME");

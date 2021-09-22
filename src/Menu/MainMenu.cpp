@@ -116,8 +116,10 @@ void MainMenu::onSinglePlayer() const
 
 void MainMenu::onMultiPlayer() const
 {
+#ifndef VITA
     MultiPlayerMenu multiPlayerMenu;
     multiPlayerMenu.showMenu();
+#endif
 }
 
 void MainMenu::onMapEditor() const

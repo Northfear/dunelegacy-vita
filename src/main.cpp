@@ -76,6 +76,14 @@
     #include <MacFunctions.h>
 #endif
 
+#ifdef VITA
+    #include <psp2/kernel/clib.h>
+    #include "vita/VitaInput.h"
+
+    unsigned int sceLibcHeapSize = 2 * 1024 * 1024;
+    int _newlib_heap_size_user = 320 * 1024 * 1024;
+#endif
+
 #if !defined(__GNUG__) || (defined(_GLIBCXX_HAS_GTHREADS) && defined(_GLIBCXX_USE_C99_STDINT_TR1) && (ATOMIC_INT_LOCK_FREE > 1) && !defined(_GLIBCXX_HAS_GTHREADS))
 // g++ does not provide std::async on all platforms
 #define HAS_ASYNC
@@ -271,7 +279,7 @@ void createDefaultConfigFile(const std::string& configfilepath, const std::strin
 #ifdef _WIN32
     DWORD playernameLength = MAX_PLAYERNAMELENGHT+1;
     GetUserName(playername, &playernameLength);
-#else
+#elif !defined(VITA)
     struct passwd* pwent = getpwuid(getuid());
 
     if(pwent != nullptr) {
@@ -303,8 +311,12 @@ void logOutputFunction(void *userdata, int category, SDL_LogPriority priority, c
     };
     fprintf(stderr, "%s:   %s\n", priorityStrings[priority], message);
     */
+#ifdef VITA
+    sceClibPrintf("%s\n", message);
+#else
     fprintf(stderr, "%s\n", message);
     fflush(stderr);
+#endif
 }
 
 void showMissingFilesMessageBox() {
@@ -375,6 +387,9 @@ int main(int argc, char *argv[]) {
     SDL_LogSetPriority(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_VERBOSE);
 
     SDL_SetHint(SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
+#ifdef VITA
+    SDL_SetHint(SDL_HINT_TOUCH_MOUSE_EVENTS, "0");
+#endif
 
     // global try/catch around everything
     try {
@@ -443,6 +458,7 @@ int main(int argc, char *argv[]) {
             if(d < 0) {
                 THROW(io_error, "Opening logfile '%s' failed!", pLogfilePath);
             }
+#ifndef VITA
             // Hint: fileno(stdout) != STDOUT_FILENO on Win32
             if(dup2(d, fileno(stdout)) < 0) {
                 THROW(io_error, "Redirecting stdout failed!");
@@ -452,7 +468,7 @@ int main(int argc, char *argv[]) {
             if(dup2(d, fileno(stderr)) < 0) {
                 THROW(io_error, "Redirecting stderr failed!");
             }
-
+#endif
             #endif
         }
 
@@ -581,7 +597,10 @@ int main(int argc, char *argv[]) {
                 if(SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO) < 0) {
                     THROW(sdl_error, "Couldn't initialize SDL: %s!", SDL_GetError());
                 }
-
+#ifdef VITA
+                SDL_Init(SDL_INIT_GAMECONTROLLER);
+                VitaInput::OpenController();
+#endif
                 SDL_version compiledVersion;
                 SDL_version linkedVersion;
                 SDL_VERSION(&compiledVersion);

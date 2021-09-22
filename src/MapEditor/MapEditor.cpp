@@ -42,6 +42,10 @@
 #include <typeinfo>
 #include <algorithm>
 
+#ifdef VITA
+#include "vita/VitaInput.h"
+#endif
+
 extern int currentZoomlevel;
 
 // functor for std::find_if
@@ -123,6 +127,9 @@ void MapEditor::RunEditor() {
         int frameStart = SDL_GetTicks();
 
         processInput();
+#ifdef VITA
+        VitaInput::ProcessControllerAxisMotion();
+#endif
         drawScreen();
 
         int frameTime = SDL_GetTicks() - frameStart;
@@ -966,7 +973,38 @@ void MapEditor::processInput() {
     SDL_Event event;
 
     while(SDL_PollEvent(&event)) {
-
+#ifdef VITA
+        switch (event.type) {
+            case SDL_FINGERDOWN:
+            case SDL_FINGERUP:
+            case SDL_FINGERMOTION:
+                VitaInput::HandleTouchEvent(event.tfinger);
+                break;
+            case SDL_CONTROLLERDEVICEREMOVED:
+                if (VitaInput::gameController != nullptr) {
+                    const SDL_GameController* removedController = SDL_GameControllerFromInstanceID(event.jdevice.which);
+                    if (removedController == VitaInput::gameController) {
+                        SDL_GameControllerClose(VitaInput::gameController);
+                        VitaInput::gameController = nullptr;
+                    }
+                }
+                break;
+            case SDL_CONTROLLERDEVICEADDED:
+                if (VitaInput::gameController == nullptr) {
+                    VitaInput::gameController = SDL_GameControllerOpen(event.jdevice.which);
+                }
+                break;
+            case SDL_CONTROLLERAXISMOTION:
+                VitaInput::HandleControllerAxisEvent(event.caxis);
+                break;
+            case SDL_CONTROLLERBUTTONDOWN:
+            case SDL_CONTROLLERBUTTONUP:
+                VitaInput::HandleControllerButtonEvent(event.cbutton);
+                break;
+            default:
+                break;
+        }
+#endif
         // first of all update mouse
         if(event.type == SDL_MOUSEMOTION) {
             SDL_MouseMotionEvent* mouse = &event.motion;
@@ -1289,13 +1327,20 @@ void MapEditor::processInput() {
         }
     }
 
+#ifdef VITA
+    if(pInterface->hasChildWindow() == false) {
+        scrollDownMode = VitaInput::upScrollActive;
+        scrollLeftMode = VitaInput::leftScrollActive;
+        scrollRightMode = VitaInput::rightScrollActive;
+        scrollUpMode = VitaInput::downScrollActive;
+#else
     if((pInterface->hasChildWindow() == false) && (SDL_GetWindowFlags(window) & SDL_WINDOW_MOUSE_FOCUS)) {
         const Uint8 *keystate = SDL_GetKeyboardState(nullptr);
         scrollDownMode =  (drawnMouseY >= getRendererHeight()-1-SCROLLBORDER) || keystate[SDL_SCANCODE_DOWN];
         scrollLeftMode = (drawnMouseX <= SCROLLBORDER) || keystate[SDL_SCANCODE_LEFT];
         scrollRightMode = (drawnMouseX >= getRendererWidth()-1-SCROLLBORDER) || keystate[SDL_SCANCODE_RIGHT];
         scrollUpMode = (drawnMouseY <= SCROLLBORDER) || keystate[SDL_SCANCODE_UP];
-
+#endif
         if(scrollLeftMode && scrollRightMode) {
             // do nothing
         } else if(scrollLeftMode) {
@@ -1320,10 +1365,11 @@ void MapEditor::processInput() {
 }
 
 void MapEditor::drawCursor() {
-
+#ifndef VITA
     if(!(SDL_GetWindowFlags(window) & SDL_WINDOW_MOUSE_FOCUS)) {
         return;
     }
+#endif
 
     SDL_Texture* pCursor = nullptr;
     SDL_Rect dest = { 0, 0, 0, 0};

@@ -29,6 +29,9 @@
 #include <sand.h>
 #include <main.h>
 
+#ifdef VITA
+#include "vita/VitaInput.h"
+#endif
 
 MenuBase::MenuBase() : Window(0,0,0,0) {
     bAllowQuiting = true;
@@ -55,7 +58,9 @@ int MenuBase::showMenu() {
         int frameStart = SDL_GetTicks();
 
         update();
-
+#ifdef VITA
+        VitaInput::ProcessControllerAxisMotion();
+#endif
         if(pNetworkManager != nullptr) {
             pNetworkManager->update();
         }
@@ -108,6 +113,34 @@ void MenuBase::drawSpecificStuff() {
 
 bool MenuBase::doInput(SDL_Event &event) {
     switch (event.type) {
+#ifdef VITA
+        case SDL_FINGERDOWN:
+        case SDL_FINGERUP:
+        case SDL_FINGERMOTION:
+            VitaInput::HandleTouchEvent(event.tfinger);
+            break;
+        case SDL_CONTROLLERDEVICEREMOVED:
+            if (VitaInput::gameController != nullptr) {
+                const SDL_GameController* removedController = SDL_GameControllerFromInstanceID(event.jdevice.which);
+                if (removedController == VitaInput::gameController) {
+                    SDL_GameControllerClose(VitaInput::gameController);
+                    VitaInput::gameController = nullptr;
+                }
+            }
+            break;
+        case SDL_CONTROLLERDEVICEADDED:
+            if (VitaInput::gameController == nullptr) {
+                VitaInput::gameController = SDL_GameControllerOpen(event.jdevice.which);
+            }
+            break;
+        case SDL_CONTROLLERAXISMOTION:
+            VitaInput::HandleControllerAxisEvent(event.caxis);
+            break;
+        case SDL_CONTROLLERBUTTONDOWN:
+        case SDL_CONTROLLERBUTTONUP:
+            VitaInput::HandleControllerButtonEvent(event.cbutton);
+            break;
+#endif
         case (SDL_KEYDOWN): {
             // Look for a keypress
             switch(event.key.keysym.sym) {

@@ -244,6 +244,10 @@ public:
         }
 
         if(pressed == true) {
+#ifdef VITA
+            setText("", false);
+            SDL_StartTextInput();
+#endif
             setActive();
             lastCarretTime = SDL_GetTicks();
         }

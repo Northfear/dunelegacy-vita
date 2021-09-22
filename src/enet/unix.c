@@ -9,7 +9,9 @@ typedef int avoid_warning_that_ISO_C_forbids_an_empty_translation_unit;
 
 #include <sys/types.h>
 #include <sys/socket.h>
+#ifndef VITA
 #include <sys/ioctl.h>
+#endif
 #include <sys/time.h>
 #include <arpa/inet.h>
 #include <netinet/tcp.h>
@@ -18,6 +20,11 @@ typedef int avoid_warning_that_ISO_C_forbids_an_empty_translation_unit;
 #include <string.h>
 #include <errno.h>
 #include <time.h>
+
+#ifdef VITA
+#define SOMAXCONN 0
+#define FIONBIO 0
+#endif
 
 #define ENET_BUILDING_LIB 1
 #include "enet/enet.h"
@@ -51,8 +58,10 @@ typedef int avoid_warning_that_ISO_C_forbids_an_empty_translation_unit;
 #include <sys/poll.h>
 #endif
 
+#ifndef VITA
 #ifndef HAS_SOCKLEN_T
 typedef int socklen_t;
+#endif
 #endif
 
 #ifndef MSG_NOSIGNAL
@@ -251,7 +260,9 @@ enet_socket_set_option (ENetSocket socket, ENetSocketOption option, int value)
 #ifdef HAS_FCNTL
             result = fcntl (socket, F_SETFL, (value ? O_NONBLOCK : 0) | (fcntl (socket, F_GETFL) & ~O_NONBLOCK));
 #else
+#ifndef VITA
             result = ioctl (socket, FIONBIO, & value);
+#endif
 #endif
             break;
 
