@@ -80,8 +80,7 @@
 #include <psp2/kernel/clib.h>
 #include "vita/VitaInput.h"
 
-unsigned int sceLibcHeapSize = 20 * 1024 * 1024;
-int _newlib_heap_size_user = 300 * 1024 * 1024;
+int _newlib_heap_size_user = 330 * 1024 * 1024;
 
 
 void *memcpy(void *destination, const void *source, size_t n)
@@ -411,7 +410,6 @@ int main(int argc, char *argv[]) {
     SDL_SetHint(SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
 #ifdef VITA
     SDL_SetHint(SDL_HINT_TOUCH_MOUSE_EVENTS, "0");
-    //SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengles2");
 #endif
 
     // global try/catch around everything

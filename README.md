@@ -64,7 +64,7 @@ You can change cursor movement speed by editing `ux0:data/dunelegacy/Dune Legacy
 
 Multiplayer is not supported on PS Vita.
 
-Vita port is currently having a critical bug and can crash/freeze sometimes while selecting the units (Or during deselection to be certain, while some other unit/building is selected. Side UI panel with unit info is probably causing this somehow). GXM fails to start the scene because something goes wrong with rendertarget (`SCE libdbg LOG, LEVEL: error, COMPONENT: SceGxmDbg, FILE:context.c, LINE:1507 [SceGxmDbg]:Failed due to error in driver layer (00000096).`).
+Vita port currently has a critical bug and can crash/freeze while selecting the units. GXM fails to start the scene because something goes wrong with rendertarget (`SCE libdbg LOG, LEVEL: error, COMPONENT: SceGxmDbg, FILE:context.c, LINE:1507 [SceGxmDbg]:Failed due to error in driver layer (00000096).`).
 
 /-------------------------------\
 | |
