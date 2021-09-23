@@ -17,11 +17,16 @@ endif()
 if(VITA)
     add_definitions(-DVITA)
     add_definitions(-DDUNELEGACY_DATADIR="ux0:data/dunelegacy")
-    set(VITA_FLAGS "-Og -g -mcpu=cortex-a9 -mfpu=neon -fno-lto")
+    set(VITA_FLAGS "-O3 -mcpu=cortex-a9 -mfpu=neon -fno-lto")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${VITA_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${VITA_FLAGS}")
     set(VITA_LIBS "-lSDL2 -lfreetype -ljpeg -lpng -lwebp -lz -lvorbisfile -lvorbis -logg -lmikmod \
-    -lpib -llibScePiglet_stub -lSceShaccCg_stub -ltaihen_stub -lSceAppMgr_stub \
+    -llibgpu_es4_ext_stub \
+    -llibIMGEGL_stub \
+    -llibGLESv1_CM_stub \
+    -llibGLESv2_stub \
+    -lSceIme_stub \
+    -lSceSysmodule_stub \
     -lScePower_stub -lSceAudio_stub -lSceCtrl_stub -lSceHid_stub -lSceTouch_stub \
 	-lSceDisplay_stub -lSceGxm_stub -lSceCommonDialog_stub -lFLAC -lmpg123 -lSceMotion_stub -lSceAppUtil_stub \
     -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-memmove -fno-builtin-memcmp")

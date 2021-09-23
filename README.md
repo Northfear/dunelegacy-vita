@@ -4,26 +4,27 @@
 
 1. Download and install dunelegacy.vpk. Extract content of dunelegacy_data.zip into `ux0:data/`.
 
-https://github.com/Northfear/dunelegacy-vita/releases
+    https://github.com/Northfear/dunelegacy-vita/releases
 
 2. The following PAK-files from the original Dune 2 are needed to play Dune Legacy:
-HARK.PAK
-ATRE.PAK
-ORDOS.PAK
-ENGLISH.PAK
-DUNE.PAK
-SCENARIO.PAK
-MENTAT.PAK
-VOC.PAK
-MERC.PAK
-FINALE.PAK
-INTRO.PAK
-INTROVOC.PAK
-SOUND.PAK
-GERMAN.PAK (for playing in German)
-FRENCH.PAK (for playing in French)
 
-Copy them into `ux0:data/dunelegacy` folder.
+    HARK.PAK
+    ATRE.PAK
+    ORDOS.PAK
+    ENGLISH.PAK
+    DUNE.PAK
+    SCENARIO.PAK
+    MENTAT.PAK
+    VOC.PAK
+    MERC.PAK
+    FINALE.PAK
+    INTRO.PAK
+    INTROVOC.PAK
+    SOUND.PAK
+    GERMAN.PAK (for playing in German)
+    FRENCH.PAK (for playing in French)
+
+    Copy them into `ux0:data/dunelegacy` folder.
 
 ## Building
 
@@ -63,7 +64,7 @@ You can change cursor movement speed by editing `ux0:data/dunelegacy/Dune Legacy
 
 Multiplayer is not supported on PS Vita.
 
-Vita port is currently having a critical bug and can crash/freeze the game sometimes while selecting units (Or more like during deselection, while some other unit/building is selected. Side UI panel with unit info is probably causing this somehow). GXM fails to start the scene because something goes wrong with rendertarget (`SCE libdbg LOG, LEVEL: error, COMPONENT: SceGxmDbg, FILE:context.c, LINE:1507 [SceGxmDbg]:Failed due to error in driver layer (00000096).`).
+Vita port is currently having a critical bug and can crash/freeze sometimes while selecting the units (Or during deselection to be certain, while some other unit/building is selected. Side UI panel with unit info is probably causing this somehow). GXM fails to start the scene because something goes wrong with rendertarget (`SCE libdbg LOG, LEVEL: error, COMPONENT: SceGxmDbg, FILE:context.c, LINE:1507 [SceGxmDbg]:Failed due to error in driver layer (00000096).`).
 
 /-------------------------------\
 | |

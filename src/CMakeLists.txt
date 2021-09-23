@@ -536,7 +536,6 @@ set(SOURCES
 find_package(SDL2 REQUIRED)
 #find_package(sdl2-mixer REQUIRED)
 #find_package(sdl2-ttf REQUIRED)
-#find_package(fmt REQUIRED)
 
 set(LIBS
 	SDL2
