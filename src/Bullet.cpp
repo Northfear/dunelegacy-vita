@@ -274,6 +274,7 @@ void Bullet::blitToScreen() const
     SDL_Rect dest = calcSpriteDrawingRect(graphic[currentZoomlevel], screenborder->world2screenX(realX), screenborder->world2screenY(realY), numFrames, 1, HAlign::Center, VAlign::Center);
 
     if(bulletID == Bullet_Sonic) {
+/*
         static const int shimmerOffset[]  = { 1, 3, 2, 5, 4, 3, 2, 1 };
 
         SDL_Texture* shimmerTex = pGFXManager->getZoomedObjPic(ObjPic_Bullet_SonicTemp, currentZoomlevel);
@@ -304,6 +305,7 @@ void Bullet::blitToScreen() const
         // now blend shimmerTex to screen (= make use of alpha values in mask)
         SDL_SetTextureBlendMode(shimmerTex, SDL_BLENDMODE_BLEND);
         SDL_RenderCopy(renderer, shimmerTex, nullptr, &dest);
+*/
     } else {
         SDL_Rect source = calcSpriteSourceRect(graphic[currentZoomlevel], (numFrames > 1) ? drawnAngle: 0, numFrames);
         SDL_RenderCopy(renderer, graphic[currentZoomlevel], &source, &dest);

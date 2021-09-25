@@ -128,7 +128,7 @@ void Sandworm::deploy(const Coord& newLocation) {
 
 void Sandworm::blitToScreen() {
     static const int shimmerOffset[]  = { 1, 3, 2, 5, 4, 3, 2, 1 };
-
+/*
     if(shimmerOffsetIndex >= 0) {
         // render sandworm's shimmer
 
@@ -169,7 +169,7 @@ void Sandworm::blitToScreen() {
 
         }
     }
-
+*/
     if(drawnFrame != INVALID) {
         SDL_Rect dest = calcSpriteDrawingRect(  graphic[currentZoomlevel],
                                                 screenborder->world2screenX(realX),

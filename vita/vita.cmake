@@ -17,4 +17,8 @@ vita_create_vpk(${EXECUTABLE_NAME}.vpk ${VITA_TITLEID} ${EXECUTABLE_NAME}.self
     FILE ${CMAKE_SOURCE_DIR}/vita/sce_sys/livearea/contents/bg.png sce_sys/livearea/contents/bg.png
     FILE ${CMAKE_SOURCE_DIR}/vita/sce_sys/livearea/contents/startup.png sce_sys/livearea/contents/startup.png
     FILE ${CMAKE_SOURCE_DIR}/vita/sce_sys/livearea/contents/template.xml sce_sys/livearea/contents/template.xml
+    FILE ${CMAKE_SOURCE_DIR}/vita/module/libGLESv1_CM.suprx module/libGLESv1_CM.suprx
+    FILE ${CMAKE_SOURCE_DIR}/vita/module/libgpu_es4_ext.suprx module/libgpu_es4_ext.suprx
+    FILE ${CMAKE_SOURCE_DIR}/vita/module/libIMGEGL.suprx module/libIMGEGL.suprx
+    FILE ${CMAKE_SOURCE_DIR}/vita/module/libpvrPSP2_WSEGL.suprx module/libpvrPSP2_WSEGL.suprx
 )
