@@ -53,38 +53,14 @@ void CutScene::run()
         const int nextFrameTime = draw();
 
         while(SDL_PollEvent(&event)) {
-
+#ifdef VITA
+            if (VitaInput::DoInput(event)) {
+                continue;
+            }
+#endif
             //check the events
             switch (event.type)
             {
-#ifdef VITA
-                case SDL_FINGERDOWN:
-                case SDL_FINGERUP:
-                case SDL_FINGERMOTION:
-                    VitaInput::HandleTouchEvent(event.tfinger);
-                    break;
-                case SDL_CONTROLLERDEVICEREMOVED:
-                    if (VitaInput::gameController != nullptr) {
-                        const SDL_GameController* removedController = SDL_GameControllerFromInstanceID(event.jdevice.which);
-                        if (removedController == VitaInput::gameController) {
-                            SDL_GameControllerClose(VitaInput::gameController);
-                            VitaInput::gameController = nullptr;
-                        }
-                    }
-                    break;
-                case SDL_CONTROLLERDEVICEADDED:
-                    if (VitaInput::gameController == nullptr) {
-                        VitaInput::gameController = SDL_GameControllerOpen(event.jdevice.which);
-                    }
-                    break;
-                case SDL_CONTROLLERAXISMOTION:
-                    VitaInput::HandleControllerAxisEvent(event.caxis);
-                    break;
-                case SDL_CONTROLLERBUTTONDOWN:
-                case SDL_CONTROLLERBUTTONUP:
-                    VitaInput::HandleControllerButtonEvent(event.cbutton);
-                    break;
-#endif
                 case (SDL_KEYDOWN): // Look for a keypress
                 {
                     if((event.key.keysym.sym == SDLK_SPACE) || (event.key.keysym.sym == SDLK_ESCAPE)) {

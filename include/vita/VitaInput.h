@@ -36,6 +36,7 @@ namespace VitaInput
 
     void OpenController();
     void CloseController();
+    bool DoInput(const SDL_Event event);
     void HandleTouchEvent(const SDL_TouchFingerEvent& event);
     void ProcessControllerAxisMotion();
     void HandleControllerAxisEvent(const SDL_ControllerAxisEvent& motion);

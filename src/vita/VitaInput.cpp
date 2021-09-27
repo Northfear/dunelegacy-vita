@@ -27,6 +27,42 @@ namespace VitaInput
         }
     }
 
+    bool DoInput(const SDL_Event event)
+    {
+        switch (event.type) {
+            case SDL_FINGERDOWN:
+            case SDL_FINGERUP:
+            case SDL_FINGERMOTION:
+                HandleTouchEvent(event.tfinger);
+                break;
+            case SDL_CONTROLLERDEVICEREMOVED:
+                if (gameController != nullptr) {
+                    const SDL_GameController* removedController = SDL_GameControllerFromInstanceID(event.jdevice.which);
+                    if (removedController == gameController) {
+                        SDL_GameControllerClose(gameController);
+                        gameController = nullptr;
+                    }
+                }
+                break;
+            case SDL_CONTROLLERDEVICEADDED:
+                if (gameController == nullptr) {
+                    gameController = SDL_GameControllerOpen(event.jdevice.which);
+                }
+                break;
+            case SDL_CONTROLLERAXISMOTION:
+                HandleControllerAxisEvent(event.caxis);
+                break;
+            case SDL_CONTROLLERBUTTONDOWN:
+            case SDL_CONTROLLERBUTTONUP:
+                HandleControllerButtonEvent(event.cbutton);
+                break;
+            default:
+                return false;
+                break;
+        }
+        return true;
+    }
+
     void HandleTouchEvent(const SDL_TouchFingerEvent& event)
     {
         // ignore back touchpad
@@ -65,12 +101,12 @@ namespace VitaInput
             SDL_PushEvent(&ev);
 
             if (event.type == SDL_FINGERDOWN || event.type == SDL_FINGERUP) {
-                SDL_Event ev;
-                ev.type = (event.type == SDL_FINGERDOWN) ? SDL_MOUSEBUTTONDOWN : SDL_MOUSEBUTTONUP;
-                ev.button.button = SDL_BUTTON_LEFT;
-                ev.button.x = emulatedPointerPosX;
-                ev.button.y = emulatedPointerPosY;
-                SDL_PushEvent(&ev);
+                SDL_Event ev2;
+                ev2.type = (event.type == SDL_FINGERDOWN) ? SDL_MOUSEBUTTONDOWN : SDL_MOUSEBUTTONUP;
+                ev2.button.button = SDL_BUTTON_LEFT;
+                ev2.button.x = emulatedPointerPosX;
+                ev2.button.y = emulatedPointerPosY;
+                SDL_PushEvent(&ev2);
             }
         }
     }
@@ -84,12 +120,11 @@ namespace VitaInput
         if (controllerLeftXAxis != 0 || controllerLeftYAxis != 0) {
             const int16_t xSign = (controllerLeftXAxis > 0) - (controllerLeftXAxis < 0);
             const int16_t ySign = (controllerLeftYAxis > 0) - (controllerLeftYAxis < 0);
-            float resolutionSpeedMod = static_cast<float>(getRendererHeight()) / 480;
 
             emulatedPointerPosX += std::pow(std::abs(controllerLeftXAxis), CONTROLLER_AXIS_SPEEDUP) * xSign * deltaTime
-                                * settings.general.controllerSpeed / CONTROLLER_SPEED_MOD * resolutionSpeedMod * cursorSpeedup;
+                                * settings.general.controllerSpeed / CONTROLLER_SPEED_MOD * cursorSpeedup;
             emulatedPointerPosY += std::pow(std::abs(controllerLeftYAxis), CONTROLLER_AXIS_SPEEDUP) * ySign * deltaTime
-                                * settings.general.controllerSpeed / CONTROLLER_SPEED_MOD * resolutionSpeedMod * cursorSpeedup;
+                                * settings.general.controllerSpeed / CONTROLLER_SPEED_MOD * cursorSpeedup;
 
             if (emulatedPointerPosX < 0)
                 emulatedPointerPosX = 0;
