@@ -64,13 +64,10 @@ You can change cursor movement speed by editing `ux0:data/dunelegacy/Dune Legacy
 
 Multiplayer is not supported on PS Vita.
 
-/-------------------------------\
-| |
-| Dune Legacy 0.96 readme |
-| ----------------------- |
-| |
-\-------------------------------/
+Also special thanks to [GrapheneCt](https://github.com/GrapheneCt) for help with GXM debugging!
 
+
+# | Dune Legacy 0.96 readme |
 
 IMPORTANT:
 This software is provided as is, and you are running it at your own risk. I'm not responsible if any harm results
