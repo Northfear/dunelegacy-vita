@@ -355,10 +355,13 @@ void showMissingFilesMessageBox() {
     }
 
     instruction += "\nYou may want to add GERMAN.PAK or FRENCH.PAK for playing in these languages.";
-
+#ifdef VITA
+    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Files missing", "Dune Legacy requires data files from the original Dune II.\nCheck installation instruction for details:\nhttps://github.com/Northfear/dunelegacy-vita", nullptr);
+#else
     if(!SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Dune Legacy", instruction.c_str(), nullptr)) {
         fprintf(stderr, "%s\n", instruction.c_str());
     }
+#endif
 }
 
 std::string getUserLanguage() {

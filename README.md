@@ -53,8 +53,8 @@ make
 - D-Pad Up/Right/Down/Left - 1/2/3/4 button
 - L1 - Ctrl
 - R1 - Shift (also used for cursor movement speedup)
-- SELECT - Esc
-- START - Space
+- SELECT - Esc (Menu)
+- START - Space (Pause)
 
 Use L1 + D-Pad to create teams (1-4) and D-Pad to select them (same as Ctrl + 1-4 on keyboard).
 
@@ -63,8 +63,6 @@ You can change cursor movement speed by editing `ux0:data/dunelegacy/Dune Legacy
 ### Additional info
 
 Multiplayer is not supported on PS Vita.
-
-Vita port currently has a critical bug and can crash/freeze while selecting the units. GXM fails to start the scene because something goes wrong with rendertarget (`SCE libdbg LOG, LEVEL: error, COMPONENT: SceGxmDbg, FILE:context.c, LINE:1507 [SceGxmDbg]:Failed due to error in driver layer (00000096).`).
 
 /-------------------------------\
 | |
