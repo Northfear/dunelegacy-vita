@@ -10,6 +10,8 @@ version 0.97.0
 	* Bugfix (Bug #81) Wrong "Built Object" stats (Reported by Urs Enke)
 	* Bugfix (Bug #82) Deviator effectlessly targets Sandworms (Reported by Urs Enke)
 	* Bugfix (Bug #83) Crash when trying to change options and no language is selected (Reported by Petr Holik)
+	* Bugfix (Bug #88) Hotkey For Stop Command Is Missing
+	* Bugfix (Bug #104) Remaining starting credits are not stored into first refinery
 
 version 0.96.4
 	* New AI Smart Bot and Quant Bot
