@@ -2089,6 +2089,15 @@ void Game::handleKeyInput(SDL_KeyboardEvent& keyboardEvent) {
             }
         } break;
 
+        case SDLK_s: {
+            for(Uint32 objectID : selectedList) {
+                ObjectBase* pObject = objectManager.getObject(objectID);
+                if(pObject->isAUnit() && (pObject->getOwner() == pLocalHouse) && pObject->isRespondable()) {
+                    static_cast<UnitBase*>(pObject)->handleSetAttackModeClick(STOP);
+                }
+            }
+        } break;
+
         case SDLK_g: {
             // select next construction yard
             std::set<Uint32> itemIDs;
