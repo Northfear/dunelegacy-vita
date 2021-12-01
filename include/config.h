@@ -17,7 +17,7 @@
  */
 
 #ifndef VERSION
-    #define VERSION "0.96.5.a4"
+    #define VERSION "0.97.0"
 #endif
 
 #ifndef PACKAGE
