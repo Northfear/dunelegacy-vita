@@ -1435,11 +1435,7 @@ void QuantBot::scrambleUnitsAndDefend(const ObjectBase* pIntruder, int numUnits)
 
                     doSetAttackMode(pUnit, AREAGUARD);
 
-                    if(pUnit->getItemID() == Unit_Launcher || pUnit->getItemID() == Unit_Deviator) {
-                        //doAttackObject(pUnit, pIntruder, true);
-                    } else {
-                        doAttackObject(pUnit, pIntruder, true);
-                    }
+                    doAttackObject(pUnit, pIntruder, true);
 
                     if(getGameInitSettings().getGameOptions().manualCarryallDrops
                         && pUnit->isVisible()
