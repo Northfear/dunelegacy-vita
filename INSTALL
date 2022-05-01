@@ -105,18 +105,19 @@ libvorbis-0.dll
 libvorbisfile-3.dll
 SDL2.dll
 SDL2_mixer.dll
-smpeg.dll
+libmpg123-0.dll
 
 Copy them in the data directory. To create a installer you need NSIS. Compile dunelegacy.nsi with the NSIS compiler to create the installer.
 
 
 Cross-compiling Windows Version on Linux:
 To compile the Windows version on Linux you need to setup the mingw cross-compiler. On Debian/Ubuntu install the packages g++-mingw-w64 and nsis.
-You need SDL2 and SDL2-mixer development files for Windows (These are not the same as the development files for Linux):
-https://libsdl.org/release/SDL2-devel-2.0.5-mingw.tar.gz
-https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.1-mingw.tar.gz
+You need SDL2, SDL2-ttf and SDL2-mixer development files for Windows (These are not the same as the development files for Linux):
+https://libsdl.org/release/SDL2-devel-2.0.14-mingw.tar.gz
+https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-devel-2.0.15-mingw.tar.gz
+https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.4-mingw.tar.gz
 
-Put a copy of the headers under /usr/i686-w64-mingw32/include and /usr/x86_64-w64-mingw32/include ; the lib files under /usr/i686-w64-mingw32/lib and /usr/x86_64-w64-mingw32/lib.
+Put a copy of the headers under /usr/local/sdl/i686-w64-mingw32/include and /usr/local/sdl/x86_64-w64-mingw32/include ; the lib files under /usr/local/sdl/i686-w64-mingw32/lib and /usr/local/sdl/x86_64-w64-mingw32/lib.
 
 To cross-compile and create a Windows installer for Dune Legacy run the following command:
 

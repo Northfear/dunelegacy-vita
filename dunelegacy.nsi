@@ -54,8 +54,8 @@ LangString UNINSTALL_NAME ${LANG_ENGLISH} "Uninstall Dune Legacy"
 
 ; German
 LangString PAGE_HEADER_TEXT ${LANG_GERMAN} "Dune II Pak-Dateien"
-LangString PAGE_HEADER_SUBTEXT ${LANG_GERMAN} "Wählen Sie das Verzeichnis aus, von dem der Installer die Dune II Pak-Dateien kopieren kann."
-LangString DIRECTORYPAGE_TEXT_TOP ${LANG_GERMAN} "Dune Legacy benötigt die PAK-Dateien des Originalspiels, welche im Dune II Verzeichnis liegen. Die folgenden Dateien werden von dort in das Dune Legacy Verzeichnis kopiert:$\n$\tHARK.PAK$\t$\tSCENARIO.PAK$\t$\tINTRO.PAK$\n$\tATRE.PAK$\t$\tMENTAT.PAK$\t$\tINTROVOC.PAK$\n$\tORDOS.PAK$\t$\tVOC.PAK$\t$\tSOUND.PAK$\n$\tENGLISH.PAK$\t$\tMERC.PAK$\t$\tGERMAN.PAK (falls vorhanden)$\n$\tDUNE.PAK$\t$\tFINALE.PAK$\t$\tFRENCH.PAK (falls vorhanden)"
+LangString PAGE_HEADER_SUBTEXT ${LANG_GERMAN} "WÃ¤hlen Sie das Verzeichnis aus, von dem der Installer die Dune II Pak-Dateien kopieren kann."
+LangString DIRECTORYPAGE_TEXT_TOP ${LANG_GERMAN} "Dune Legacy benÃ¶tigt die PAK-Dateien des Originalspiels, welche im Dune II Verzeichnis liegen. Die folgenden Dateien werden von dort in das Dune Legacy Verzeichnis kopiert:$\n$\tHARK.PAK$\t$\tSCENARIO.PAK$\t$\tINTRO.PAK$\n$\tATRE.PAK$\t$\tMENTAT.PAK$\t$\tINTROVOC.PAK$\n$\tORDOS.PAK$\t$\tVOC.PAK$\t$\tSOUND.PAK$\n$\tENGLISH.PAK$\t$\tMERC.PAK$\t$\tGERMAN.PAK (falls vorhanden)$\n$\tDUNE.PAK$\t$\tFINALE.PAK$\t$\tFRENCH.PAK (falls vorhanden)"
 LangString DIRECTORYPAGE_TEXT_DESTINATION ${LANG_GERMAN} "Verzeichnis mit Dune II Pak-Dateien"
 LangString UNINSTALL_NAME ${LANG_GERMAN} "Dune Legacy deinstallieren"
 
@@ -161,7 +161,10 @@ Section ""
     File build\x64\libvorbisfile-3.dll
     File build\x64\libmodplug-1.dll
     File build\x64\libFLAC-8.dll
-    File build\x64\smpeg2.dll
+    File build\x64\libmpg123-0.dll
+    File build\x64\SDL2_ttf.dll
+    File build\x64\libfreetype-6.dll
+    File build\x64\zlib1.dll
   ${Else}
     File build\x86\dunelegacy.exe
     File build\x86\SDL2.dll
@@ -171,7 +174,10 @@ Section ""
     File build\x86\libvorbisfile-3.dll
     File build\x86\libmodplug-1.dll
     File build\x86\libFLAC-8.dll
-    File build\x86\smpeg2.dll
+    File build\x86\libmpg123-0.dll
+    File build\x86\SDL2_ttf.dll
+    File build\x86\libfreetype-6.dll
+    File build\x86\zlib1.dll
   ${EndIf}
   File data\LEGACY.PAK
   File data\OPENSD2.PAK

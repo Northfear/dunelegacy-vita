@@ -1,3 +1,20 @@
+dunelegacy (0.97.0) unstable; urgency=low
+  * Completely reworked air units (much more similar to the original game)
+  * Air unit limit increases with (ground) unit limit
+  * Use truetype font for all texts
+  * Swap button order for question boxes and mentat screens (same as in the original game)
+  * Option: Rotate air unit graphics smoothly (option is off by default)
+  * Update fmt library to version 3.0.2
+  * Radar shows number of visible enemy units and visible friendly units
+  * Bugfix (Bug #77) Window moves to primary screen on resolution change (Reported by Urs Enke)
+  * Bugfix (Bug #81) Wrong "Built Object" stats (Reported by Urs Enke)
+  * Bugfix (Bug #82) Deviator effectlessly targets Sandworms (Reported by Urs Enke)
+  * Bugfix (Bug #83) Crash when trying to change options and no language is selected (Reported by Petr Holik)
+  * Bugfix (Bug #88) Hotkey For Stop Command Is Missing
+  * Bugfix (Bug #104) Remaining starting credits are not stored into first refinery
+  
+ -- Timo Boegner <gaiasoftATonline.de>  Mon, 29 Nov 2021 00:00:00 +0100
+
 dunelegacy (0.96.4) unstable; urgency=low
   * New AI Smart Bot and Quant Bot
   * Port to SDL 2

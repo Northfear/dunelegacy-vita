@@ -335,7 +335,7 @@ std::string getItemNameByID(Uint32 itemID) {
         case Unit_Troopers:                 return "Troopers";          break;
 
         default:
-            THROW(std::invalid_argument, "getItemNameByID(): Invalid item ID!");
+            THROW(std::invalid_argument, "getItemNameByID(): Invalid item ID " + std::to_string(itemID) + "!");
         break;
     }
 }
@@ -391,7 +391,7 @@ std::string resolveItemName(int itemID) {
         case Unit_Troopers:                 return _("@DUNE.ENG|201#Troopers");            break;
 
         default:
-            THROW(std::invalid_argument, "resolveItemName(): Invalid item ID!");
+            THROW(std::invalid_argument, "resolveItemName(): Invalid item ID " + std::to_string(itemID) + "!");
         break;
     }
 }

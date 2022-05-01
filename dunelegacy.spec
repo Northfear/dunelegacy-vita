@@ -1,7 +1,7 @@
 Summary:	A Dune II clone
 Summary(pl.UTF-8):	Zaktualizowany klon gry Dune2
 Name:		dunelegacy
-Version:	0.96.4
+Version:	0.97.0
 Release:	0.1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy

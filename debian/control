@@ -2,8 +2,8 @@ Source: dunelegacy
 Section: games
 Priority: optional
 Maintainer: Richard Schaller <richard.schaller@gmx.de>
-Build-Depends: debhelper (>= 7), libsdl2-dev, libsdl2-mixer-dev
-Standards-Version: 3.8.3
+Build-Depends: debhelper (>= 10), libsdl2-dev, libsdl2-mixer-dev, libsdl2-ttf-dev
+Standards-Version: 4.5.1
 Homepage: http://sourceforge.net/projects/dunelegacy
 
 Package: dunelegacy

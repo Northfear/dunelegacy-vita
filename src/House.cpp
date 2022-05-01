@@ -421,7 +421,14 @@ void House::incrementStructures(int itemID) {
     }
 
     // change spice capacity
-    capacity += currentGame->objectData.data[itemID][houseID].capacity;
+    int currentItemCapacity = currentGame->objectData.data[itemID][houseID].capacity;
+    if(currentItemCapacity >= 0) {
+    	capacity += currentItemCapacity;
+    	// transfer as much starting credits as possible to stored credits
+        FixPoint transferCredits = startingCredits;
+        startingCredits = 0;
+    	returnCredits(transferCredits);
+    }
 
     if(currentGame->gameState != GameState::Loading) {
         // do not check selection lists if we are loading
