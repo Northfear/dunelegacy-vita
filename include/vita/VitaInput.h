@@ -13,7 +13,7 @@ namespace VitaInput
     enum
     {
         CONTROLLER_L_DEADZONE = 3000,
-        CONTROLLER_R_DEADZONE = 6000,
+        CONTROLLER_R_DEADZONE = 25000,
         VITA_FULLSCREEN_WIDTH = 960,
         VITA_FULLSCREEN_HEIGHT = 544
     };
