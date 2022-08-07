@@ -399,12 +399,7 @@ int fnkdat(const _TCHAR* target, _TCHAR* buffer, int len, int flags) {
 #define _TCHAR char
 #define _T(s)  s
 #define FNKDAT_FILE_SEPARATOR '/'
-#ifdef VITA
-#include <dirent.h>
-#define _tmkdir(d) sceIoMkdir(d, 0777)
-#else
 #define _tmkdir(d) mkdir(d, (mode_t)FNKDAT_DIRMODE)
-#endif
 #define _tcsrchr strrchr
 #define _tcslen strlen
 #define _tstat stat

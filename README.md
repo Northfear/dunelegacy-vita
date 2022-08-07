@@ -36,7 +36,7 @@
 ### Build
 ```
 mkdir build && cd build
-cmake .. -DCMAKE_TOOLCHAIN_FILE=$VITASDK/share/vita.toolchain.cmake -DVITA=true
+cmake .. -DCMAKE_TOOLCHAIN_FILE=$VITASDK/share/vita.toolchain.cmake -DCMAKE_BUILD_TYPE=None -DVITA=true
 make
 ```
 
