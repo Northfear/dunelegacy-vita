@@ -29,7 +29,7 @@
 #include <sand.h>
 #include <main.h>
 
-#ifdef VITA
+#ifdef __vita__
 #include "vita/VitaInput.h"
 #endif
 
@@ -58,7 +58,7 @@ int MenuBase::showMenu() {
         int frameStart = SDL_GetTicks();
 
         update();
-#ifdef VITA
+#ifdef __vita__
         VitaInput::ProcessControllerAxisMotion();
 #endif
         if(pNetworkManager != nullptr) {
@@ -112,7 +112,7 @@ void MenuBase::drawSpecificStuff() {
 }
 
 bool MenuBase::doInput(SDL_Event &event) {
-#ifdef VITA
+#ifdef __vita__
     VitaInput::DoInput(event);
 #endif
     switch (event.type) {

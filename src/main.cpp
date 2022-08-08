@@ -76,7 +76,7 @@
     #include <MacFunctions.h>
 #endif
 
-#ifdef VITA
+#ifdef __vita__
 #include <psp2/kernel/clib.h>
 #include <psp2/power.h>
 #include "vita/VitaInput.h"
@@ -310,7 +310,7 @@ void createDefaultConfigFile(const std::string& configfilepath, const std::strin
 #ifdef _WIN32
     DWORD playernameLength = MAX_PLAYERNAMELENGHT+1;
     GetUserName(playername, &playernameLength);
-#elif !defined(VITA)
+#elif !defined(__vita__)
     struct passwd* pwent = getpwuid(getuid());
 
     if(pwent != nullptr) {
@@ -342,7 +342,7 @@ void logOutputFunction(void *userdata, int category, SDL_LogPriority priority, c
     };
     fprintf(stderr, "%s:   %s\n", priorityStrings[priority], message);
     */
-#ifdef VITA
+#ifdef __vita__
     sceClibPrintf("%s\n", message);
 #else
     fprintf(stderr, "%s\n", message);
@@ -365,7 +365,7 @@ void showMissingFilesMessageBox() {
     }
 
     instruction += "\nYou may want to add GERMAN.PAK or FRENCH.PAK for playing in these languages.";
-#ifdef VITA
+#ifdef __vita__
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Files missing", "Dune Legacy requires data files from the original Dune II.\nCheck installation instruction for details:\nhttps://github.com/Northfear/dunelegacy-vita", nullptr);
 #else
     if(!SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Dune Legacy", instruction.c_str(), nullptr)) {
@@ -421,7 +421,7 @@ int main(int argc, char *argv[]) {
     SDL_LogSetPriority(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_VERBOSE);
 
     SDL_SetHint(SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
-#ifdef VITA
+#ifdef __vita__
     SDL_SetHint(SDL_HINT_TOUCH_MOUSE_EVENTS, "0");
 	scePowerSetArmClockFrequency(444);
 	scePowerSetBusClockFrequency(222);
@@ -496,7 +496,7 @@ int main(int argc, char *argv[]) {
             if(d < 0) {
                 THROW(io_error, "Opening logfile '%s' failed!", pLogfilePath);
             }
-#ifndef VITA
+#ifndef __vita__
             // Hint: fileno(stdout) != STDOUT_FILENO on Win32
             if(dup2(d, fileno(stdout)) < 0) {
                 THROW(io_error, "Redirecting stdout failed!");
@@ -557,7 +557,7 @@ int main(int argc, char *argv[]) {
             settings.general.playerName = myINIFile.getStringValue("General","Player Name","Player");
             settings.general.language = myINIFile.getStringValue("General","Language","en");
             settings.general.scrollSpeed = myINIFile.getIntValue("General","Scroll Speed",50);
-#ifdef VITA
+#ifdef __vita__
             settings.general.controllerSpeed = myINIFile.getIntValue("General","Controller Speed",10);
 #endif
             settings.general.showTutorialHints = myINIFile.getBoolValue("General","Show Tutorial Hints",true);
@@ -640,7 +640,7 @@ int main(int argc, char *argv[]) {
                 if(SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO) < 0) {
                     THROW(sdl_error, "Couldn't initialize SDL: %s!", SDL_GetError());
                 }
-#ifdef VITA
+#ifdef __vita__
                 SDL_Init(SDL_INIT_GAMECONTROLLER);
                 VitaInput::OpenController();
 #endif

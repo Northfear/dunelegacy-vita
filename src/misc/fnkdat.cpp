@@ -441,7 +441,7 @@ int fnkdat(const char* target, char* buffer, int len, int flags) {
 #ifdef __APPLE__
       getMacApplicationSupportFolder(buffer, len);
       FNKDAT_S(strncat(buffer, "/Dune Legacy", len));
-#elif defined(VITA)
+#elif defined(__vita__)
       FNKDAT_S(strncat(buffer, "ux0:data/dunelegacy", len));
 #else
       {

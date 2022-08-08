@@ -25,7 +25,7 @@
 #include <globals.h>
 #include <sand.h>
 
-#ifdef VITA
+#ifdef __vita__
 #include "vita/VitaInput.h"
 #endif
 
@@ -53,7 +53,7 @@ void CutScene::run()
         const int nextFrameTime = draw();
 
         while(SDL_PollEvent(&event)) {
-#ifdef VITA
+#ifdef __vita__
             if (VitaInput::DoInput(event)) {
                 continue;
             }

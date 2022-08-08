@@ -69,7 +69,7 @@
 #include <sstream>
 #include <iomanip>
 
-#ifdef VITA
+#ifdef __vita__
 #include "vita/VitaInput.h"
 #endif
 
@@ -554,7 +554,7 @@ void Game::doInput()
 {
     SDL_Event event;
     while(SDL_PollEvent(&event)) {
-#ifdef VITA
+#ifdef __vita__
         if (VitaInput::DoInput(event)) {
             continue;
         }
@@ -816,7 +816,7 @@ void Game::doInput()
         }
     }
 
-#ifdef VITA
+#ifdef __vita__
     if((pInGameMenu == nullptr) && (pInGameMentat == nullptr) && (pWaitingForOtherPlayers == nullptr)) {
         scrollDownMode = VitaInput::upScrollActive;
         scrollLeftMode = VitaInput::leftScrollActive;
@@ -857,7 +857,7 @@ void Game::doInput()
 
 void Game::drawCursor() const
 {
-#ifndef VITA
+#ifndef __vita__
     if(!(SDL_GetWindowFlags(window) & SDL_WINDOW_MOUSE_FOCUS)) {
         return;
     }
@@ -1131,7 +1131,7 @@ void Game::runMainLoop() {
 
         frameTime += frameEnd - frameStart; // find difference to get frametime
         frameStart = SDL_GetTicks();
-#ifdef VITA
+#ifdef __vita__
         VitaInput::ProcessControllerAxisMotion();
 #endif
         numFrames++;
@@ -2112,7 +2112,7 @@ void Game::handleKeyInput(SDL_KeyboardEvent& keyboardEvent) {
             }
         } break;
 
-#ifdef VITA
+#ifdef __vita__
         case SDLK_s: {
             //stop
             UnitBase* pLastUnit = nullptr;

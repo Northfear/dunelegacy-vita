@@ -33,7 +33,7 @@ sdl2::surface_ptr GUIStyle::createEmptySurface(Uint32 width, Uint32 height, bool
     if(!pSurface) {
         return nullptr;
     }
-#ifdef VITA
+#ifdef __vita__
     // fix for transparent lists
     SDL_FillRect(pSurface.get(), nullptr, COLOR_RGBA(0, 0, 0, 255));
 #else

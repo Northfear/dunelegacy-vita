@@ -43,7 +43,7 @@
     the two global variables drawnMouseX and drawnMouseY.
 */
 void drawCursor() {
-#ifndef VITA
+#ifndef __vita__
     if(!(SDL_GetWindowFlags(window) & SDL_WINDOW_MOUSE_FOCUS)) {
         return;
     }

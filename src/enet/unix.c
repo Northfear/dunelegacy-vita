@@ -9,7 +9,7 @@ typedef int avoid_warning_that_ISO_C_forbids_an_empty_translation_unit;
 
 #include <sys/types.h>
 #include <sys/socket.h>
-#ifndef VITA
+#ifndef __vita__
 #include <sys/ioctl.h>
 #endif
 #include <sys/time.h>
@@ -21,7 +21,7 @@ typedef int avoid_warning_that_ISO_C_forbids_an_empty_translation_unit;
 #include <errno.h>
 #include <time.h>
 
-#ifdef VITA
+#ifdef __vita__
 #ifndef HAS_FCNTL
 #define HAS_FCNTL 1
 #endif

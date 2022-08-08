@@ -244,7 +244,7 @@ public:
         }
 
         if(pressed == true) {
-#ifdef VITA
+#ifdef __vita__
             setText("", false);
             SDL_StartTextInput();
 #endif

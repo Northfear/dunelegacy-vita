@@ -545,7 +545,28 @@ set(LIBS
 
 add_library(dune ${SOURCES} ${HEADERS})
 target_include_directories(dune PUBLIC ../include PRIVATE)
-target_link_libraries(dune PUBLIC ${LIBS})
+
+if(VITA)
+	target_link_libraries (dune PUBLIC
+		SDL2_mixer
+		SDL2_ttf
+		SDL2::SDL2
+		freetype
+		png
+		FLAC
+		mikmod
+		modplug
+		mpg123
+		vorbisfile
+		vorbis
+		ogg
+		freetype
+		pthread
+		z
+	)
+else()
+	target_link_libraries(dune PUBLIC ${LIBS})
+endif()
 
 add_executable(dunelegacy ${EXE_SOURCES} ../include/main.h)
 target_link_libraries(dunelegacy PRIVATE dune)

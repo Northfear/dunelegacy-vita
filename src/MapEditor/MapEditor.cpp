@@ -42,7 +42,7 @@
 #include <typeinfo>
 #include <algorithm>
 
-#ifdef VITA
+#ifdef __vita__
 #include "vita/VitaInput.h"
 #endif
 
@@ -127,7 +127,7 @@ void MapEditor::RunEditor() {
         int frameStart = SDL_GetTicks();
 
         processInput();
-#ifdef VITA
+#ifdef __vita__
         VitaInput::ProcessControllerAxisMotion();
 #endif
         drawScreen();
@@ -973,7 +973,7 @@ void MapEditor::processInput() {
     SDL_Event event;
 
     while(SDL_PollEvent(&event)) {
-#ifdef VITA
+#ifdef __vita__
         if (VitaInput::DoInput(event)) {
             continue;
         }
@@ -1300,7 +1300,7 @@ void MapEditor::processInput() {
         }
     }
 
-#ifdef VITA
+#ifdef __vita__
     if(pInterface->hasChildWindow() == false) {
         scrollDownMode = VitaInput::upScrollActive;
         scrollLeftMode = VitaInput::leftScrollActive;
@@ -1338,7 +1338,7 @@ void MapEditor::processInput() {
 }
 
 void MapEditor::drawCursor() {
-#ifndef VITA
+#ifndef __vita__
     if(!(SDL_GetWindowFlags(window) & SDL_WINDOW_MOUSE_FOCUS)) {
         return;
     }

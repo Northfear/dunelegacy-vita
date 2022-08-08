@@ -116,7 +116,7 @@ void MainMenu::onSinglePlayer() const
 
 void MainMenu::onMultiPlayer() const
 {
-#ifndef VITA
+#ifndef __vita__
     MultiPlayerMenu multiPlayerMenu;
     multiPlayerMenu.showMenu();
 #endif
