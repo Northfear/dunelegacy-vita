@@ -551,7 +551,11 @@ if(VITA)
 		SDL2_mixer
 		SDL2_ttf
 		SDL2::SDL2
+		opusfile
+		opus
+		xmp
 		freetype
+		bz2
 		png
 		FLAC
 		mikmod
@@ -560,7 +564,6 @@ if(VITA)
 		vorbisfile
 		vorbis
 		ogg
-		freetype
 		pthread
 		z
 	)

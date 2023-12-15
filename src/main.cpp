@@ -82,26 +82,6 @@
 #include "vita/VitaInput.h"
 
 int _newlib_heap_size_user = 224 * 1024 * 1024;
-
-void *memcpy(void *destination, const void *source, size_t n)
-{
-	return sceClibMemcpy(destination, source, n);
-}
-
-void *memset(void *destination, int c, size_t n)
-{
-	return sceClibMemset(destination, c, n);
-}
-
-void *memmove(void *destination, const void *source, size_t n)
-{
-	return sceClibMemmove(destination, source, n);
-}
-
-int memcmp(const void *arr1, const void *arr2, size_t n)
-{
-	return sceClibMemcmp(arr1, arr2, n);
-}
 #endif
 
 #if !defined(__GNUG__) || (defined(_GLIBCXX_HAS_GTHREADS) && defined(_GLIBCXX_USE_C99_STDINT_TR1) && (ATOMIC_INT_LOCK_FREE > 1) && !defined(_GLIBCXX_HAS_GTHREADS))
@@ -423,10 +403,10 @@ int main(int argc, char *argv[]) {
     SDL_SetHint(SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
 #ifdef __vita__
     SDL_SetHint(SDL_HINT_TOUCH_MOUSE_EVENTS, "0");
-	scePowerSetArmClockFrequency(444);
-	scePowerSetBusClockFrequency(222);
-	scePowerSetGpuClockFrequency(222);
-	scePowerSetGpuXbarClockFrequency(166);
+    scePowerSetArmClockFrequency(444);
+    scePowerSetBusClockFrequency(222);
+    scePowerSetGpuClockFrequency(222);
+    scePowerSetGpuXbarClockFrequency(166);
 #endif
 
     // global try/catch around everything
